@@ -78,6 +78,40 @@
                 android:background="#E1E1E1"
                 android:text="@string/bsd_dav1d" />
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="30dp" />
+
+            <TextView
+                android:id="@+id/texta2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/this_application_is_made_possible_by_tiv"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/texta5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tiv_released_under_apache"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:text="@string/tiv_link" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="#E1E1E1"
+                android:text="@string/apache_tiv" />
+
         </LinearLayout>
     </ScrollView>
 

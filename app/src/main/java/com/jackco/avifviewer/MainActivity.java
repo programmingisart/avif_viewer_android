@@ -1,9 +1,11 @@
 package com.jackco.avifviewer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.UiModeManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -24,6 +26,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ortiz.touchview.TouchImageView;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     TextView text2 = null;
@@ -256,7 +261,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
         try {
             OutputStream myOutput = new FileOutputStream(getDataDir() + "/test1.avif");
             byte[] buffer = new byte[1024];
@@ -303,19 +307,35 @@ public class MainActivity extends AppCompatActivity {
 
         buttonA.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Dialog custoDialog = new Dialog(MainActivity.this);
-                custoDialog.setContentView(R.layout.about_layout);
+                Dialog licenseDialog = new Dialog(MainActivity.this);
+                licenseDialog.setContentView(R.layout.about_layout);
 
-                Window window = custoDialog.getWindow();
+                Window window = licenseDialog.getWindow();
                 window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
                 window.setGravity(Gravity.CENTER);
 
-
-
-                custoDialog.show();
+                licenseDialog.show();
             }
         });
 
+        image1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(mainImage == null) return;
+                Dialog imageDialog = new Dialog(MainActivity.this, R.style.Theme_AppCompat_NoActionBar);
+
+                imageDialog.setContentView(R.layout.fullscreen_image_layout);
+                Window window = imageDialog.getWindow();
+                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                window.setGravity(Gravity.CENTER);
+                window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                TouchImageView imagez = imageDialog.findViewById(R.id.imagef1);
+
+                imagez.setImageBitmap(mainImage);
+                imageDialog.show();
+
+            }
+        });
 
     }
 
