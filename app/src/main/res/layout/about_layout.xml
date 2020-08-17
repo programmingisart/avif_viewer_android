@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#000000">
 
-    <ScrollView
+
+<ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -20,6 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/this_application_is_made_possible_by_libavif"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <TextView
@@ -27,6 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/released_under_bsd"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <TextView
@@ -42,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="#E1E1E1"
+                android:textColor="#000000"
                 android:text="@string/bsd_libavif" />
 
             <Space
@@ -54,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/this_application_is_made_possible_by_dav1d"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <TextView
@@ -61,6 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/dav1d_released_under_bsd"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <TextView
@@ -76,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="#E1E1E1"
+                android:textColor="#000000"
                 android:text="@string/bsd_dav1d" />
 
             <Space
@@ -88,6 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/this_application_is_made_possible_by_tiv"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <TextView
@@ -95,6 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tiv_released_under_apache"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <TextView
@@ -110,6 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="#E1E1E1"
+                android:textColor="#000000"
                 android:text="@string/apache_tiv" />
 
         </LinearLayout>

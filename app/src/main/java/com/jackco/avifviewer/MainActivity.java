@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
                 colors[x] = color;
                 x++;
             }
-            p.setPixels(colors,0,width,0,y,width, lines);
+            p.setPixels(colors,0,width,0, y,width, lines);
             y += READONCE;
             if(height-y < READONCE) lines = height - y;
         }
