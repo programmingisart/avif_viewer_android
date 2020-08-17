@@ -8,8 +8,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     Button button2;
+
 
     private class AsyncOpenAVIF extends AsyncTask<String, String, Bitmap> {
 
@@ -250,6 +253,10 @@ public class MainActivity extends AppCompatActivity {
         button2 = findViewById(R.id.button2);
 
         image1 = findViewById(R.id.image1);
+
+
+
+
         try {
             OutputStream myOutput = new FileOutputStream(getDataDir() + "/test1.avif");
             byte[] buffer = new byte[1024];
