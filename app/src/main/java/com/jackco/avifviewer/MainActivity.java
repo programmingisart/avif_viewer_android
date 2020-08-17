@@ -96,10 +96,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String execCmd(String cmd, String[] envp) throws java.io.IOException {
 
-        long time = System.currentTimeMillis();
         Process proc = null;
         proc = Runtime.getRuntime().exec(cmd, envp);
-        decodedIn = "Decoded in " + String.valueOf(System.currentTimeMillis() - time) + " milliseconds";
         java.io.InputStream is = proc.getInputStream();
         java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
         String val = "";
@@ -139,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
 
         String name = getApplicationInfo().nativeLibraryDir + "/libavif_example1.so " + filePath + " " + rawFileP;
 
+        long time = System.currentTimeMillis();
+
 
         String res = null;
         try {
@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        decodedIn = "Decoded in " + String.valueOf(System.currentTimeMillis() - time) + " milliseconds";
 
 
         File todeleteF = new File(filePath);
@@ -233,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == fileRequestCode && resultCode == Activity.RESULT_OK && data != null) {
             Uri uri = null;
             uri = data.getData();
-            File destF = new File(getDataDir() + "/about_layout.avif");
+            File destF = new File(getDataDir() + "/image1.avif");
             if (destF.exists()) {
                 destF.delete();
             }
@@ -243,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             AsyncOpenAVIF asyncTask=new AsyncOpenAVIF();
-            asyncTask.execute(getDataDir().getAbsolutePath() + "/about_layout.avif");
+            asyncTask.execute(getDataDir().getAbsolutePath() + "/image1.avif");
 
 
         }
