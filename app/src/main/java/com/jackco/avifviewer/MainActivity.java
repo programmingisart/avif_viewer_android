@@ -35,6 +35,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.util.Objects;
 
@@ -186,29 +187,31 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        byte[] fileContent = new byte[0x1000000];
-        int fcs = fileContent.length;
+        int READONCE = 64;
+
+        if(READONCE > height) READONCE = height;
+
+        int lines = READONCE;
+        int read = width*4*lines;
+        byte[] fileContent = new byte[read];
+
+        int[] colors = new int[read];
 
         while(y < height) {
-
             try {
                 fi.read(fileContent);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            for (int i = 0; i < fcs; ) {
-
-                if (x == width) {
-                    y++;
-                    x = 0;
-                }
-                if(y == height) break;
+            x=0;
+            for (int i = 0; i < read; ) {
                 int color = (fileContent[i++] & 0xff) << 24 | (fileContent[i++] & 0xff) << 16 | (fileContent[i++] & 0xff) << 8 | (fileContent[i++] & 0xff);
-                p.setPixel(x, y, color);
+                colors[x] = color;
                 x++;
-
             }
+            p.setPixels(colors,0,width,0,y,width, lines);
+            y += READONCE;
+            if(height-y < READONCE) lines = height - y;
         }
 
 
@@ -284,8 +287,7 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
                 intent.setType("*/*");
                 startActivityForResult(intent,fileRequestCode);
             }
