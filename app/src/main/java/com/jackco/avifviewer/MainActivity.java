@@ -23,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -127,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String name = getApplicationInfo().nativeLibraryDir + "/libavif_example1.so " + filePath + " " + rawFileP;
-        File executable = new File(name);
-        Process process = null;
+
+
         String res = null;
         try {
             res = execCmd(name, envp);
@@ -136,8 +138,11 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
         File todeleteF = new File(filePath);
         if(todeleteF.exists())todeleteF.delete();
+
+
 
         Log.e("RES", res);
         String resS[]= res.split("\n");
@@ -150,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
         if(!decodeResult.equals("decodeResult:OK")){
             resultS = "Decode Failed";
             mainImage = null;
+            if(file.exists()) file.delete();
             return null;
         }
         resultS = res;
@@ -157,28 +163,46 @@ public class MainActivity extends AppCompatActivity {
         int width = Integer.parseInt(widheiS[0]);
         int height = Integer.parseInt(widheiS[1]);
 
-        byte[] fileContent = null;
-        try {
-            fileContent = Files.readAllBytes(file.toPath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Log.e("SIZE", String.valueOf(file.length()));
 
-
-        Bitmap p = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
         int x = 0;
         int y = 0;
 
-        for(int i = 0; i < width*height*4; ){
-            if(x == width) {
-                y++;
-                x = 0;
-            }
-            int color = (fileContent[i++] & 0xff) << 24 | (fileContent[i++] & 0xff) << 16 | (fileContent[i++] & 0xff) << 8 | (fileContent[i++] & 0xff);
-            p.setPixel(x,y,color);
-            x++;
+        Bitmap p = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+        FileInputStream fi = null;
+        try {
+           fi = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
+
+        byte[] fileContent = new byte[0x1000000];
+        int fcs = fileContent.length;
+
+        while(y < height) {
+
+            try {
+                fi.read(fileContent);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            for (int i = 0; i < fcs; ) {
+
+                if (x == width) {
+                    y++;
+                    x = 0;
+                }
+                if(y == height) break;
+                int color = (fileContent[i++] & 0xff) << 24 | (fileContent[i++] & 0xff) << 16 | (fileContent[i++] & 0xff) << 8 | (fileContent[i++] & 0xff);
+                p.setPixel(x, y, color);
+                x++;
+
+            }
+        }
+
 
         file.delete();
 
